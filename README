@@ -1,0 +1,48 @@
+- First we need to create a repo
+    - on GitHub, create the-farm repo with an README.md page
+    - git clone https://github.com/billdestein/the-farm.git
+- Now add CRA on branch "main"
+    - cd the-farm
+    - npm init react-app cra
+    - cd cra
+    - npm install --save gh-pages
+    - edit package.json
+        - add homepage
+            - "homepage": "https://billdestein.github.io/the-farm",
+        - add scripts
+            - "predeploy": "npm run build"
+            - "deploy": "gh-pages -d build"
+    - git add .
+    - git commit -a -m "Add CRA"
+    - git push origin main
+- Deploy
+    - git branch -d gh-pages
+    - git push origin --delete gh-pages
+    - git branch gh-pages
+    - git checkout gh-pages
+    - git push origin gh-pages
+    - cd the-farm/cra
+    - yarn
+    - yarn build
+    - yarn deploy
+- Test
+    - With your browser, go to: https://billdestein.github.io/the-farm/
+- Configure a custom domain
+    - On Route53 register domain name wade-road-east.com
+    - On Route53 create hosted zone wade-road-east.com
+    - On Route53 create A record with these IPs
+        - 185.199.108.153
+        - 185.199.109.153
+        - 185.199.110.153
+        - 185.199.111.153
+    - In github, the-farm, settings
+        - set custom domain to "wade-road-east.com"
+    - Add CNAME in source tree on branch main
+        - edit the-farm/cra/public/CNAME
+	- wade-road-east.com
+    - In pachage.json, change homepage
+         "homepage": "https://wade-road-east.com"        
+    - Commit and push
+        - git commit -a -m "Add CNAME"
+	- git push origin main
+      
